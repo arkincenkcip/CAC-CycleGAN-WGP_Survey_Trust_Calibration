@@ -813,6 +813,9 @@
             }
 
             updateAdminPanel();
+            
+            // Auto-save to Google Sheets after EACH section
+            sendToGoogleSheets();
         }
 
         function showMessage(message) {
