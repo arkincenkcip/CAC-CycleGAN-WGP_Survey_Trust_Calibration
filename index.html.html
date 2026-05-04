@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Survey - Bearing Fault Diagnosis Study</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --text: #2d3436;
+            --text-light: #636e72;
+            --bg: #f8f9fa;
+            --white: #ffffff;
+            --border: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Lucida Sans';
+            background: #ffffff;
+            color: #000000;
+            line-height: 1.8;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            font-size: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 3rem;
+            border: 2px solid #000000;
+        }
+
+        header {
+            border-bottom: 3px solid #000000;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        h1 {
+            font-family: 'Lucida Sans';
+            font-size: 2rem;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #333333;
+            font-style: normal;
+        }
+
+        h2 {
+            font-family: 'Lucida Sans';
+            font-size: 1.6rem;
+            color: #000000;
+            margin: 2.5rem 0 1.5rem;
+            font-weight: 600;
+        }
+
+        .survey-section {
+            margin-bottom: 3rem;
+        }
+
+        .question-block {
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background: #f5f5f5;
+            border-left: 3px solid #000000;
+        }
+
+        .question-block:hover {
+            background: #eeeeee;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            color: #000000;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .question-number {
+            font-family: 'Lucida Sans';
+            color: #000000;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .scale-legend {
+            margin: 2rem 0;
+            border: 2px solid #000000;
+        }
+
+        .scale-legend-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            text-align: center;
+        }
+
+        .scale-legend-row.header {
+            background: #000000;
+            color: white;
+            font-family: 'Lucida Sans';
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .scale-legend-row.labels {
+            background: #f5f5f5;
+            font-size: 1rem;
+            padding: 0.75rem 0;
+        }
+
+        .scale-legend-cell {
+            padding: 0.75rem;
+            border-right: 1px solid #000000;
+        }
+
+        .scale-legend-cell:last-child {
+            border-right: none;
+        }
+
+        .likert-scale {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 3rem;
+            margin-top: 1.5rem;
+            padding: 1.5rem 0;
+        }
+
+        .likert-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .likert-number {
+            font-family: 'Lucida Sans';
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: #000000;
+            min-width: 30px;
+        }
+
+        .likert-option input[type="radio"] {
+            appearance: none;
+            width: 26px;
+            height: 26px;
+            border: 2px solid #000000;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .likert-option input[type="radio"]:hover {
+            border-color: #000000;
+            transform: scale(1.1);
+        }
+
+        .likert-option input[type="radio"]:checked {
+            background: #000000;
+            border-color: #000000;
+        }
+
+        .likert-option input[type="radio"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .likert-label {
+            font-size: 1rem;
+            color: #333333;
+            text-align: center;
+            line-height: 1.3;
+            font-family: 'Lucida Sans';
+            max-width: 110px;
+        }
+
+        /* NASA-TLX Slider Styling */
+        .slider-container {
+            margin-top: 1rem;
+        }
+
+        .slider-wrapper {
+            display: block;
+            margin-top: 0.75rem;
+            position: relative;
+        }
+
+        .slider-wrapper input[type="range"] {
+            width: 100%;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            height: 10px;
+            border-radius: 5px;
+            background: #cccccc;
+            outline: none;
+            -webkit-appearance: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #000000;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            margin-top: 0;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #000000;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        input[type="range"]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+        }
+
+        input[type="range"]::-moz-range-track {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+        }
+
+        .slider-value {
+            font-family: 'Lucida Sans';
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #000000;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-family: 'Lucida Sans';
+            position: relative;
+            padding: 0;
+        }
+
+        .slider-labels span {
+            flex: 1;
+            text-align: left;
+            transform: translateX(-8px);
+        }
+
+        .slider-labels span:first-child {
+            transform: translateX(-8px);
+        }
+
+        .slider-labels span:last-child {
+            transform: translateX(calc(-100% - 8px));
+            text-align: right;
+        }
+
+        .nasa-description {
+            font-size: 1.1rem;
+            color: #333333;
+            font-style: normal;
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+
+        button {
+            font-family: 'Lucida Sans';
+            background: #000000;
+            color: white;
+            border: 2px solid #000000;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: #333333;
+            border-color: #333333;
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: var(--border);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .progress {
+            background: #dddddd;
+            height: 6px;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #000000;
+            transition: width 0.5s ease;
+        }
+
+        .admin-panel {
+            background: #f5f5f5;
+            color: #000000;
+            padding: 2rem;
+            margin-top: 3rem;
+            border: 2px solid #000000;
+        }
+
+        .admin-panel h3 {
+            font-family: 'Lucida Sans';
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            color: #000000;
+        }
+
+        .admin-panel .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-box {
+            background: #ffffff;
+            padding: 1rem;
+            border: 2px solid #000000;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            color: #333333;
+        }
+
+        .stat-value {
+            font-family: 'Lucida Sans';
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .completion-message {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .completion-message h2 {
+            color: var(--highlight);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            .likert-scale {
+                flex-direction: column;
+            }
+
+            .likert-option {
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Research Survey System <span id="scenarioIndicator" style="color: #666;"></span></h1>
+            <p class="subtitle">Inference-Time CycleGAN References for Operator Trust Calibration in Noisy Fault Diagnosis</p>
+        </header>
+
+        <div style="background: #f5f5f5; padding: 2rem; margin-bottom: 2rem; border: 2px solid #000000;">
+            <h2 style="margin-top: 0; font-size: 1.6rem;">Participant Information</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
+                <div>
+                    <label style="display: block; font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;">Participant Name:</label>
+                    <input type="text" id="participantName" style="width: 100%; padding: 0.75rem; font-size: 1.1rem; font-family: 'Lucida Sans'; border: 2px solid #000000;">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;">Shuffle Configuration:</label>
+                    <input type="text" id="shuffleConfig" style="width: 100%; padding: 0.75rem; font-size: 1.1rem; font-family: 'Lucida Sans'; border: 2px solid #000000;">
+                </div>
+            </div>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div id="surveyContent"></div>
+
+        <div class="admin-panel">
+            <h3>Administrator Panel</h3>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-label">Total Responses</div>
+                    <div class="stat-value" id="totalResponses">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Current Survey</div>
+                    <div class="stat-value" id="currentSurvey">Pre-Exp</div>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="downloadCSV()">Download All Data (CSV)</button>
+                <button onclick="resetSurvey()">Reset for Next Participant</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const surveyData = {
+            participantId: Date.now(),
+            participantName: '',
+            shuffleConfig: '',
+            responses: [],
+            currentSurvey: 'pre-experiment',
+            scenarioCount: 0
+        };
+
+        const surveys = {
+            'pre-experiment': {
+                title: 'Pre-Experiment Survey',
+                subtitle: 'Please answer these questions about your general attitudes toward automated systems.',
+                scale: {
+                    type: 'likert-5',
+                    labels: ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree']
+                },
+                questions: [
+                    { id: 'pre1', text: 'One should be careful with unfamiliar automated systems.' },
+                    { id: 'pre2', text: 'I rather trust a system than I mistrust it.' },
+                    { id: 'pre3', text: 'Automated systems generally work well.' },
+                    { id: 'pre4', text: 'I regularly work with or have worked with automated diagnostic or classification systems.' }
+                ]
+            },
+            'nasa-tlx': {
+                title: 'NASA Task Load Index',
+                subtitle: 'Please rate your workload for the scenario you just completed.',
+                scale: {
+                    type: 'slider',
+                    min: 0,
+                    max: 100,
+                    step: 5
+                },
+                questions: [
+                    { id: 'nasa1', text: 'Mental Demand', description: 'How much mental and perceptual activity was required? Was the task easy or demanding, simple or complex, exacting or forgiving?', leftLabel: 'Low', rightLabel: 'High' },
+                    { id: 'nasa2', text: 'Physical Demand', description: 'How much physical activity was required? Was the task easy or demanding, slack or strenuous?', leftLabel: 'Low', rightLabel: 'High' },
+                    { id: 'nasa3', text: 'Temporal Demand', description: 'How much time pressure did you feel due to the rate or pace at which the tasks occurred?', leftLabel: 'Low', rightLabel: 'High' },
+                    { id: 'nasa4', text: 'Performance', description: 'How successful were you in accomplishing what you were asked to do?', leftLabel: 'Good', rightLabel: 'Poor' },
+                    { id: 'nasa5', text: 'Effort', description: 'How hard did you have to work to accomplish your level of performance?', leftLabel: 'Low', rightLabel: 'High' },
+                    { id: 'nasa6', text: 'Frustration', description: 'How insecure, discouraged, irritated, stressed, or annoyed were you?', leftLabel: 'Low', rightLabel: 'High' }
+                ]
+            },
+            'post-scenario': {
+                title: 'Post-Scenario Questions',
+                subtitle: 'Please rate these statements about the scenario you just completed.',
+                scale: {
+                    type: 'likert-5',
+                    labels: ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree']
+                },
+                questions: [
+                    { id: 'ds1', text: 'The information helped me judge how trustworthy each prediction was.' },
+                    { id: 'ds2', text: 'I had enough information to decide whether to trust each prediction.' },
+                    { id: 'ds3', text: 'The information showed me warning signs when a prediction might be wrong.' },
+                    { id: 'ds4', text: 'The visual references helped me see the differences between fault types.' },
+                    { id: 'ds5', text: 'The visual references helped me feel more confident when predictions were not clear.' },
+                    { id: 'ds6', text: 'This type of information would be helpful for actual fault diagnosis tasks.' }
+                ]
+            },
+            'post-session': {
+                title: 'Final Questions',
+                subtitle: 'Now that you have completed all three scenarios, please answer these final questions.',
+                scale: {
+                    type: 'likert-5',
+                    labels: ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree']
+                },
+                questions: [
+                    { id: 'tc1', text: 'By the end of the study, I was confident I could judge when predictions were likely correct.' },
+                    { id: 'tc2', text: 'I learned which types of predictions from this system I could trust.' },
+                    { id: 'tc3', text: 'After all three scenarios, I developed a better strategy for when to trust or question the system.' }
+                ]
+            }
+        };
+
+        function renderSurvey(surveyKey) {
+            const survey = surveys[surveyKey];
+            const content = document.getElementById('surveyContent');
+            
+            let html = `
+                <div class="survey-section">
+                    <h2>${survey.title}</h2>
+                    <p class="subtitle">${survey.subtitle}</p>
+            `;
+
+            // Add legend for Likert scales
+            if (survey.scale.type === 'likert-5') {
+                html += `
+                    <div class="scale-legend">
+                        <div class="scale-legend-row header">
+                            <div class="scale-legend-cell">1</div>
+                            <div class="scale-legend-cell">2</div>
+                            <div class="scale-legend-cell">3</div>
+                            <div class="scale-legend-cell">4</div>
+                            <div class="scale-legend-cell">5</div>
+                        </div>
+                        <div class="scale-legend-row labels">
+                            ${survey.scale.labels.map(label => `<div class="scale-legend-cell">${label}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            survey.questions.forEach((q, index) => {
+                html += `
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">${index + 1}.</span>
+                            ${q.text}
+                        </div>
+                `;
+
+                if (survey.scale.type === 'likert-5') {
+                    html += '<div class="likert-scale">';
+                    for (let i = 1; i <= 5; i++) {
+                        html += `
+                            <div class="likert-option">
+                                <span class="likert-number">${i}</span>
+                                <input type="radio" name="${q.id}" value="${i}" id="${q.id}_${i}" required>
+                                <label class="likert-label" for="${q.id}_${i}">${survey.scale.labels[i-1]}</label>
+                            </div>
+                        `;
+                    }
+                    html += '</div>';
+                } else if (survey.scale.type === 'slider') {
+                    const leftLabel = q.leftLabel || 'Low';
+                    const rightLabel = q.rightLabel || 'High';
+                    const sliderId = `slider_${q.id}`;
+                    html += `
+                        <div class="slider-container">
+                            ${q.description ? `<div class="nasa-description">${q.description}</div>` : ''}
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.75rem;">
+                                <span style="font-family: 'Lucida Sans'; font-size: 1.2rem; color: #333333; min-width: 50px; font-weight: bold;">${leftLabel}</span>
+                                <div style="flex: 1; position: relative;">
+                                    <div class="slider-wrapper">
+                                        <input type="range" id="${sliderId}" name="${q.id}" min="${survey.scale.min}" max="${survey.scale.max}" step="${survey.scale.step}" value="50" 
+                                               oninput="document.getElementById('${q.id}_value').textContent = this.value">
+                                    </div>
+                                    <div id="${sliderId}_labels" style="position: relative; height: 20px; margin-top: 0.5rem;">
+                                    </div>
+                                </div>
+                                <span style="font-family: 'Lucida Sans'; font-size: 1.2rem; color: #333333; min-width: 50px; font-weight: bold;">${rightLabel}</span>
+                                <span class="slider-value" id="${q.id}_value" style="min-width: 60px; text-align: center;">50</span>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                html += '</div>';
+            });
+
+            html += `
+                    <div class="button-group">
+                        <button onclick="submitSurvey('${surveyKey}')">Submit</button>
+                    </div>
+                </div>
+            `;
+
+            content.innerHTML = html;
+            updateProgress();
+            updateScenarioIndicator(surveyKey);
+            
+            // Position slider labels after DOM is ready
+            if (survey.scale.type === 'slider') {
+                setTimeout(() => positionSliderLabels(surveyKey), 0);
+            }
+        }
+
+        function updateScenarioIndicator(surveyKey) {
+            const indicator = document.getElementById('scenarioIndicator');
+            if (!indicator) return;
+            
+            if (surveyKey === 'pre-experiment') {
+                indicator.textContent = '- Pre-Experiment';
+            } else if (surveyKey === 'nasa-tlx') {
+                indicator.textContent = `- Scenario ${surveyData.scenarioCount} (NASA-TLX)`;
+            } else if (surveyKey === 'post-scenario') {
+                indicator.textContent = `- Scenario ${surveyData.scenarioCount} (Post-Scenario)`;
+            } else if (surveyKey === 'post-session') {
+                indicator.textContent = '- Post-Session (Final)';
+            }
+        }
+
+        function positionSliderLabels(surveyKey) {
+            const survey = surveys[surveyKey];
+            survey.questions.forEach((q) => {
+                const slider = document.getElementById(`slider_${q.id}`);
+                const labelsContainer = document.getElementById(`slider_${q.id}_labels`);
+                
+                if (!slider || !labelsContainer) return;
+                
+                // Get slider dimensions
+                const sliderRect = slider.getBoundingClientRect();
+                const sliderWidth = sliderRect.width;
+                
+                // Calculate thumb position at min and max
+                // For range inputs, thumb travels from (thumbWidth/2) to (width - thumbWidth/2)
+                const thumbWidth = 24; // matches our CSS
+                const minPos = thumbWidth / 2;
+                const maxPos = sliderWidth - (thumbWidth / 2);
+                const travelDistance = maxPos - minPos;
+                
+                // Clear existing labels
+                labelsContainer.innerHTML = '';
+                
+                // Create labels positioned based on actual thumb travel
+                for (let i = 0; i <= 20; i++) {
+                    const value = i * 5;
+                    const percentage = value / 100;
+                    const position = minPos + (travelDistance * percentage);
+                    
+                    const label = document.createElement('span');
+                    label.textContent = value;
+                    label.style.position = 'absolute';
+                    label.style.left = position + 'px';
+                    label.style.transform = 'translateX(-50%)';
+                    label.style.fontSize = '1.1rem';
+                    label.style.color = '#333333';
+                    label.style.fontFamily = "'IBM Plex Mono', monospace";
+                    label.style.whiteSpace = 'nowrap';
+                    
+                    labelsContainer.appendChild(label);
+                }
+            });
+        }
+
+        function submitSurvey(surveyKey) {
+            // Capture participant info on first submission
+            if (surveyKey === 'pre-experiment') {
+                surveyData.participantName = document.getElementById('participantName').value.trim();
+                surveyData.shuffleConfig = document.getElementById('shuffleConfig').value.trim();
+                
+                if (!surveyData.participantName || !surveyData.shuffleConfig) {
+                    alert('Please fill in both Participant Name and Shuffle Configuration before starting.');
+                    return;
+                }
+            }
+            
+            const survey = surveys[surveyKey];
+            const response = {
+                surveyType: surveyKey,
+                scenarioNumber: surveyKey === 'nasa-tlx' || surveyKey === 'post-scenario' ? surveyData.scenarioCount : null,
+                timestamp: new Date().toISOString(),
+                answers: {}
+            };
+
+            let allAnswered = true;
+            survey.questions.forEach(q => {
+                const inputs = document.getElementsByName(q.id);
+                let value = null;
+
+                if (survey.scale.type === 'likert-5') {
+                    for (let input of inputs) {
+                        if (input.checked) {
+                            value = parseInt(input.value);
+                            break;
+                        }
+                    }
+                } else if (survey.scale.type === 'slider') {
+                    value = parseInt(inputs[0].value);
+                }
+
+                if (value === null && survey.scale.type === 'likert-5') {
+                    allAnswered = false;
+                }
+
+                response.answers[q.id] = value;
+            });
+
+            if (!allAnswered) {
+                alert('Please answer all questions before submitting.');
+                return;
+            }
+
+            surveyData.responses.push(response);
+            saveToLocalStorage();
+
+            // Scroll to top of page
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Determine next survey
+            if (surveyKey === 'pre-experiment') {
+                showMessage('Pre-experiment survey completed. Please proceed with Scenario 1.');
+                setTimeout(() => {
+                    surveyData.currentSurvey = 'nasa-tlx';
+                    surveyData.scenarioCount = 1;
+                    renderSurvey('nasa-tlx');
+                }, 2000);
+            } else if (surveyKey === 'nasa-tlx') {
+                surveyData.currentSurvey = 'post-scenario';
+                renderSurvey('post-scenario');
+            } else if (surveyKey === 'post-scenario') {
+                if (surveyData.scenarioCount < 3) {
+                    showMessage(`Scenario ${surveyData.scenarioCount} completed. Please proceed with Scenario ${surveyData.scenarioCount + 1}.`);
+                    setTimeout(() => {
+                        surveyData.scenarioCount++;
+                        surveyData.currentSurvey = 'nasa-tlx';
+                        renderSurvey('nasa-tlx');
+                    }, 2000);
+                } else {
+                    showMessage('All 3 scenarios completed. Please complete the final questionnaire.');
+                    setTimeout(() => {
+                        surveyData.currentSurvey = 'post-session';
+                        renderSurvey('post-session');
+                    }, 2000);
+                }
+            } else if (surveyKey === 'post-session') {
+                showCompletionMessage();
+            }
+
+            updateAdminPanel();
+        }
+
+        function showMessage(message) {
+            const content = document.getElementById('surveyContent');
+            content.innerHTML = `
+                <div class="completion-message">
+                    <h2>${message}</h2>
+                </div>
+            `;
+        }
+
+        function showCompletionMessage() {
+            const content = document.getElementById('surveyContent');
+            content.innerHTML = `
+                <div class="completion-message">
+                    <h2>✓ Survey Complete</h2>
+                    <p style="font-size: 1.2rem; margin-top: 1rem;">
+                        Thank you for participating! The researcher will now download your responses.
+                    </p>
+                </div>
+            `;
+        }
+
+        function updateProgress() {
+            const totalSteps = 10; // 1 pre + 3*(nasa+post-scenario) + 1 post-session
+            const completedSteps = surveyData.responses.length;
+            const percentage = (completedSteps / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = percentage + '%';
+        }
+
+        function updateAdminPanel() {
+            document.getElementById('totalResponses').textContent = surveyData.responses.length;
+            document.getElementById('currentSurvey').textContent = surveyData.currentSurvey;
+        }
+
+        function downloadCSV() {
+            const allData = JSON.parse(localStorage.getItem('allParticipants') || '[]');
+            
+            if (allData.length === 0) {
+                alert('No data to download yet.');
+                return;
+            }
+
+            let csv = 'ParticipantID,ParticipantName,ShuffleConfig,SurveyType,ScenarioNumber,Timestamp,QuestionID,Response\n';
+
+            allData.forEach(participant => {
+                const name = participant.participantName || '';
+                const config = participant.shuffleConfig || '';
+                participant.responses.forEach(response => {
+                    const scenario = response.scenarioNumber !== null && response.scenarioNumber !== undefined ? response.scenarioNumber : '';
+                    Object.entries(response.answers).forEach(([questionId, answer]) => {
+                        csv += `${participant.participantId},"${name}","${config}","${response.surveyType}",${scenario},"${response.timestamp}","${questionId}",${answer}\n`;
+                    });
+                });
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `survey_data_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+        }
+
+        function resetSurvey() {
+            if (confirm('Reset survey for next participant? Current participant data will be saved.')) {
+                // Save current participant data
+                const allData = JSON.parse(localStorage.getItem('allParticipants') || '[]');
+                allData.push({
+                    participantId: surveyData.participantId,
+                    participantName: surveyData.participantName,
+                    shuffleConfig: surveyData.shuffleConfig,
+                    responses: surveyData.responses
+                });
+                localStorage.setItem('allParticipants', JSON.stringify(allData));
+
+                // Reset for new participant
+                surveyData.participantId = Date.now();
+                surveyData.participantName = '';
+                surveyData.shuffleConfig = '';
+                surveyData.responses = [];
+                surveyData.currentSurvey = 'pre-experiment';
+                surveyData.scenarioCount = 0;
+
+                // Clear input fields
+                document.getElementById('participantName').value = '';
+                document.getElementById('shuffleConfig').value = '';
+
+                renderSurvey('pre-experiment');
+                updateAdminPanel();
+            }
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('currentParticipant', JSON.stringify(surveyData));
+        }
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('currentParticipant');
+            if (saved) {
+                const data = JSON.parse(saved);
+                Object.assign(surveyData, data);
+            }
+        }
+
+        // Initialize
+        loadFromLocalStorage();
+        renderSurvey(surveyData.currentSurvey);
+        updateAdminPanel();
+    </script>
+</body>
+</html>
